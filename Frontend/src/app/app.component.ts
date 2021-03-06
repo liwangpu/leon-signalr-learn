@@ -1,0 +1,68 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import * as signalR from "@microsoft/signalr";
+
+@Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit {
+
+    public form: FormGroup;
+    public connected: boolean;
+    private connection: signalR.HubConnection;
+    public constructor(
+        private snackBar: MatSnackBar,
+        fb: FormBuilder
+    ) {
+        this.form = fb.group({
+            user: [],
+            message: []
+        });
+    }
+
+    public ngOnInit(): void {
+        this.connection = new signalR.HubConnectionBuilder()
+            .withUrl("http://localhost:56789/chathub")
+            .build();
+
+        this.connection.on("send", data => {
+            console.log(data);
+        });
+
+        this.connection.on("ReceiveMessage", function (user, message) {
+            console.log(1, user, message);
+
+        });
+
+        this.form.patchValue({
+            user: 'robot',
+            message: Date.now().toString()
+        });
+    }
+
+    public connectHub(): void {
+        this.connection.start().then(() => {
+            this.snackBar.open('连接成功');
+            // this.connection.invoke("send", "Hello")
+            this.connected = true;
+        }).catch(err => {
+            this.snackBar.open('无法连接到服务器');
+            this.connected = false;
+        });
+    }
+
+    public disconnectHub(): void {
+        // this.connection.
+    }
+
+    public sendMessage(): void {
+        let { user, message } = this.form.value;
+        this.connection.send("newMessage", user, message)
+            .then(() => {
+                this.snackBar.open(`消息发送成功:${message}`);
+            });
+    }
+}

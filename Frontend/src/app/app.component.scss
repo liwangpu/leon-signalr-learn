@@ -1,0 +1,16 @@
+:host {
+    display: block;
+    padding: 30px;
+
+    form {
+        &>* {
+            width: 100%;
+        }
+    }
+
+    div.buttons {
+        &>* {
+            margin-right: 1em;
+        }
+    }
+}
