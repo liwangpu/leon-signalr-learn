@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
 
     public form: FormGroup;
     public connected: boolean;
+    public connectionId: string;
     private connection: signalR.HubConnection;
     public constructor(
         private snackBar: MatSnackBar,
@@ -25,7 +26,11 @@ export class AppComponent implements OnInit {
 
     public ngOnInit(): void {
         this.connection = new signalR.HubConnectionBuilder()
-            .withUrl("http://localhost:56789/chathub")
+            .withUrl("http://localhost:9871/chathub", {
+                accessTokenFactory: () => {
+                    return 'leon get token';
+                }
+            })
             .build();
 
         this.connection.on("send", data => {
@@ -33,9 +38,13 @@ export class AppComponent implements OnInit {
         });
 
         this.connection.on("ReceiveMessage", function (user, message) {
-            console.log(1, user, message);
+            console.log('ReceiveMessage', user, message);
 
         });
+
+        this.connection.on('broadcastchartdata', (data) => {
+            console.log('broadcastchartdata', data);
+        })
 
         this.form.patchValue({
             user: 'robot',
@@ -48,10 +57,12 @@ export class AppComponent implements OnInit {
             this.snackBar.open('连接成功');
             // this.connection.invoke("send", "Hello")
             this.connected = true;
-        }).catch(err => {
-            this.snackBar.open('无法连接到服务器');
-            this.connected = false;
-        });
+        })
+            .then(() => this.getConnectionId())
+            .catch(err => {
+                this.snackBar.open('无法连接到服务器');
+                this.connected = false;
+            });
     }
 
     public disconnectHub(): void {
@@ -60,9 +71,17 @@ export class AppComponent implements OnInit {
 
     public sendMessage(): void {
         let { user, message } = this.form.value;
-        this.connection.send("newMessage", user, message)
+        this.connection.invoke("BroadcastChartData", [])
             .then(() => {
                 this.snackBar.open(`消息发送成功:${message}`);
             });
+    }
+
+    public getConnectionId = () => {
+        this.connection.invoke('getconnectionid').then(
+            (data) => {
+                this.connectionId = data;
+            }
+        );
     }
 }

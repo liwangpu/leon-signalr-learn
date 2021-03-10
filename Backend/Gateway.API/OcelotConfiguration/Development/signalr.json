@@ -1,0 +1,54 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9882
+        }
+      ],
+      "DownstreamPathTemplate": "/oss/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamHttpMethod": [],
+      "UpstreamPathTemplate": "/oss/swagger.json"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9882
+        }
+      ],
+      "UpstreamPathTemplate": "/signalr/{everything}",
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotClient",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "IdentityId": "Claims[IdentityId] > value[0] > |"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/chathub/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9882
+        }
+      ],
+      "UpstreamPathTemplate": "/chathub/{everything}",
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotClient",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "IdentityId": "Claims[IdentityId] > value[0] > |"
+      }
+    }
+  ]
+}
