@@ -61,6 +61,9 @@ namespace Gateway.API
                 });
             services.AddOcelot();
 
+            //if (turnOnWebsockets)
+            //services.UseWebSockets();
+
             services.AddControllers();
         }
 
@@ -81,6 +84,7 @@ namespace Gateway.API
             app.UseRouting();
             app.UseCors("CorsPolicy");
             app.UseAuthorization();
+            app.UseWebSockets();
             app.UseOcelot().Wait();
         }
     }

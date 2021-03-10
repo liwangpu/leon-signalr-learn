@@ -49,6 +49,18 @@
       "AddHeadersToRequest": {
         "IdentityId": "Claims[IdentityId] > value[0] > |"
       }
+    },
+    {
+      "DownstreamPathTemplate": "/chathub",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9882
+        }
+      ],
+      "UpstreamPathTemplate": "/chathub",
+      "UpstreamHttpMethod": []
     }
   ]
 }
