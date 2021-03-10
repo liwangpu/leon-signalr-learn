@@ -38,6 +38,7 @@ export class AppComponent implements OnInit {
             // })
             .build();
 
+
         this.connection.on("send", data => {
             console.log(data);
         });
