@@ -1,6 +1,7 @@
 using IDS.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,6 +31,7 @@ namespace Backend
 
             services.AddControllers();
             services.AddSignalR();
+            services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
             //services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
         }
 

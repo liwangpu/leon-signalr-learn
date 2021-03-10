@@ -60,7 +60,14 @@
         }
       ],
       "UpstreamPathTemplate": "/chathub",
-      "UpstreamHttpMethod": []
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotClient",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "IdentityId": "Claims[IdentityId] > value[0] > |"
+      }
     }
   ]
 }

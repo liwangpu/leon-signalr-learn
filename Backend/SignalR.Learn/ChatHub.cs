@@ -40,7 +40,7 @@ namespace Backend
 
         public string GetConnectionId()
         {
-            //Context
+            var us = Context.User;
             return Context.ConnectionId;
         }
     }
