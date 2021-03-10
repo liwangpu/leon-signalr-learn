@@ -28,9 +28,14 @@ export class AppComponent implements OnInit {
         this.connection = new signalR.HubConnectionBuilder()
             .withUrl("http://localhost:9871/chathub", {
                 accessTokenFactory: () => {
-                    return 'leon get token';
+                    return 'qjptBT3_R_f3Gksq1QLmUR_CjVgUE_mQcGBqRYLXtTI';
                 }
             })
+            // .withUrl("http://localhost:9882/chathub", {
+            //     accessTokenFactory: () => {
+            //         return 'qjptBT3_R_f3Gksq1QLmUR_CjVgUE_mQcGBqRYLXtTI';
+            //     }
+            // })
             .build();
 
         this.connection.on("send", data => {
