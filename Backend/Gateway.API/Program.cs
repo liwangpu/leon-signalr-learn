@@ -27,7 +27,7 @@ namespace Gateway.API
                     var folder = $"OcelotConfiguration/{env}";
                     options.Files.Add($"{folder}/base.json");
                     options.Files.Add($"{folder}/ids.json");
-                    options.Files.Add($"{folder}/signalr.json");
+                    options.Files.Add($"{folder}/message.json");
                 })
                 .AddEnvironmentVariables();
             })

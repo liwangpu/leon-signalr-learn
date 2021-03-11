@@ -26,9 +26,9 @@ export class AppComponent implements OnInit {
 
     public ngOnInit(): void {
         this.connection = new signalR.HubConnectionBuilder()
-            .withUrl("http://localhost:9871/chathub", {
+            .withUrl("http://localhost:9871/hub/chathub", {
                 accessTokenFactory: () => {
-                    return 'qjptBT3_R_f3Gksq1QLmUR_CjVgUE_mQcGBqRYLXtTI';
+                    return 'QuLbh10a13myPwJrGlKwEbxtNw4C70qU_W8uHlsagVw';
                 }
             })
             // .withUrl("http://localhost:9882/chathub", {

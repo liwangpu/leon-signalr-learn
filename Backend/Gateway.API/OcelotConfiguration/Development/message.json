@@ -7,10 +7,10 @@
           "Port": 9882
         }
       ],
-      "DownstreamPathTemplate": "/oss/swagger.json",
+      "DownstreamPathTemplate": "/message/swagger.json",
       "DownstreamScheme": "http",
       "UpstreamHttpMethod": [],
-      "UpstreamPathTemplate": "/oss/swagger.json"
+      "UpstreamPathTemplate": "/message/swagger.json"
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
@@ -21,26 +21,7 @@
           "Port": 9882
         }
       ],
-      "UpstreamPathTemplate": "/signalr/{everything}",
-      "UpstreamHttpMethod": [],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "OcelotClient",
-        "AllowedScopes": []
-      },
-      "AddHeadersToRequest": {
-        "IdentityId": "Claims[IdentityId] > value[0] > |"
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/chathub/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 9882
-        }
-      ],
-      "UpstreamPathTemplate": "/chathub/{everything}",
+      "UpstreamPathTemplate": "/message/{everything}",
       "UpstreamHttpMethod": [],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "OcelotClient",
@@ -59,15 +40,20 @@
           "Port": 9882
         }
       ],
-      "UpstreamPathTemplate": "/chathub",
-      "UpstreamHttpMethod": [],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "OcelotClient",
-        "AllowedScopes": []
-      },
-      "AddHeadersToRequest": {
-        "IdentityId": "Claims[IdentityId] > value[0] > |"
-      }
+      "UpstreamPathTemplate": "/hub/chathub",
+      "UpstreamHttpMethod": []
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9882
+        }
+      ],
+      "UpstreamPathTemplate": "/hub/{everything}",
+      "UpstreamHttpMethod": []
     }
   ]
 }
