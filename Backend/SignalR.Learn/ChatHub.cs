@@ -10,6 +10,8 @@ namespace Backend
     {
         public override Task OnConnectedAsync()
         {
+            //var us = Context.User;
+            //var us1 = Context.User?.Identity?.Name;
             Console.WriteLine($"有连接请求:{Context.ConnectionId}");
             return base.OnConnectedAsync();
         }
@@ -39,7 +41,7 @@ namespace Backend
 
         public string GetConnectionId()
         {
-            var us = Context.User;
+            //var us = Context.User;
             return Context.ConnectionId;
         }
     }
