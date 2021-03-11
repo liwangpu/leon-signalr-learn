@@ -41,7 +41,14 @@
         }
       ],
       "UpstreamPathTemplate": "/hub/chathub",
-      "UpstreamHttpMethod": []
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotClient",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "IdentityId": "Claims[IdentityId] > value[0] > |"
+      }
     },
     {
       "DownstreamPathTemplate": "/{everything}",
@@ -53,7 +60,14 @@
         }
       ],
       "UpstreamPathTemplate": "/hub/{everything}",
-      "UpstreamHttpMethod": []
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotClient",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "IdentityId": "Claims[IdentityId] > value[0] > |"
+      }
     }
   ]
 }
