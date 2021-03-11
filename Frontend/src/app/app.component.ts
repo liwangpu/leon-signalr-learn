@@ -43,9 +43,9 @@ export class AppComponent implements OnInit {
             console.log(data);
         });
 
-        this.connection.on("ReceiveMessage", function (user, message) {
-            console.log('ReceiveMessage', user, message);
-
+        this.connection.on("ReceiveMessage", (message, user) => {
+            console.log('ReceiveMessage', message);
+            this.snackBar.open(`接收到消息:${message}`, null, { duration: 2000 });
         });
 
         this.connection.on('broadcastchartdata', (data) => {
@@ -60,13 +60,13 @@ export class AppComponent implements OnInit {
 
     public connectHub(): void {
         this.connection.start().then(() => {
-            this.snackBar.open('连接成功');
+            this.snackBar.open('连接成功', null, { duration: 2000 });
             // this.connection.invoke("send", "Hello")
             this.connected = true;
         })
             .then(() => this.getConnectionId())
             .catch(err => {
-                this.snackBar.open('无法连接到服务器');
+                this.snackBar.open('无法连接到服务器', null, { duration: 2000 });
                 this.connected = false;
             });
     }
