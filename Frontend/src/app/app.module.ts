@@ -8,6 +8,8 @@ import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/mat
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
     declarations: [
@@ -20,10 +22,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatButtonModule,
+        HttpClientModule,
         MatInputModule,
         MatSnackBarModule
     ],
     providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } }
     ],
     bootstrap: [AppComponent]

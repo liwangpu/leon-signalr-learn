@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,27 +14,42 @@ export class AppComponent implements OnInit {
     public form: FormGroup;
     public connected: boolean;
     private connection: signalR.HubConnection;
+    private baseUrl = 'https://d-xcloud-gateway.cxist.cn/web/message';
+    private alias: string;
     public constructor(
         private snackBar: MatSnackBar,
+        private httpClient: HttpClient,
         fb: FormBuilder
     ) {
         this.form = fb.group({
+            token: [],
+            employeeId: [],
             user: [],
             message: []
         });
     }
 
     public ngOnInit(): void {
+        let configStr = localStorage.getItem('config');
+        let config: { [key: string]: any } = {};
+        if (configStr) {
+            config = JSON.parse(configStr);
+            this.form.patchValue(config);
+        }
+
         this.connection = new signalR.HubConnectionBuilder()
-            .withUrl("http://localhost:56789/chathub")
+            .withUrl(`${this.baseUrl}/signalr`, {
+                accessTokenFactory() {
+                    return config.token;
+                },
+                transport: signalR.HttpTransportType.LongPolling
+            })
+            .withAutomaticReconnect()
             .build();
 
-        this.connection.on("send", data => {
-            console.log(data);
-        });
-
-        this.connection.on("ReceiveMessage", function (user, message) {
-            console.log(1, user, message);
+        this.connection.on("messageReceived", function (user, message) {
+            // console.log('messageReceived:', typeof message);
+            console.log('messageReceived', JSON.parse(message));
 
         });
 
@@ -43,10 +59,14 @@ export class AppComponent implements OnInit {
         });
     }
 
+    public saveConfig(): void {
+        localStorage.setItem('config', JSON.stringify(this.form.value));
+        this.snackBar.open('保存成功');
+    }
+
     public connectHub(): void {
         this.connection.start().then(() => {
             this.snackBar.open('连接成功');
-            // this.connection.invoke("send", "Hello")
             this.connected = true;
         }).catch(err => {
             this.snackBar.open('无法连接到服务器');
@@ -64,5 +84,18 @@ export class AppComponent implements OnInit {
             .then(() => {
                 this.snackBar.open(`消息发送成功:${message}`);
             });
+    }
+
+    public async sendAuthMessage(): Promise<void> {
+        this.connection.send('BindAlias', this.alias);
+    }
+
+    public requestAlias(): void {
+        let { employeeId } = this.form.value;
+        let myId = { type: 'user', info: employeeId };
+        this.httpClient.get(`${this.baseUrl}/alias?bizObjId=${JSON.stringify(myId)}`).subscribe((res: string) => {
+            this.alias = res;
+            console.log('alias:', res);
+        });
     }
 }
