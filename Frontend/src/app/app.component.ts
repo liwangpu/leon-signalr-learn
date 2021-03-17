@@ -31,7 +31,12 @@ export class AppComponent implements OnInit {
             //         return 'QuLbh10a13myPwJrGlKwEbxtNw4C70qU_W8uHlsagVw';
             //     }
             // })
-            .withUrl("http://localhost:9882/chathub", {
+            // .withUrl("http://localhost:9882/chathub", {
+            //     // accessTokenFactory: () => {
+            //     //     return 'qjptBT3_R_f3Gksq1QLmUR_CjVgUE_mQcGBqRYLXtTI';
+            //     // }
+            // })
+            .withUrl("http://122.51.54.26:9882/chathub", {
                 // accessTokenFactory: () => {
                 //     return 'qjptBT3_R_f3Gksq1QLmUR_CjVgUE_mQcGBqRYLXtTI';
                 // }
