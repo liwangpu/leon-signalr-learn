@@ -70,8 +70,6 @@ export class HomeComponent implements OnInit {
     }
 
     public connectHub(): void {
-
-
         this.connection.start().then(() => {
             this.snackBar.open('连接成功', null, { duration: 2000 });
             this.connected = true;

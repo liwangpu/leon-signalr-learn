@@ -6,12 +6,7 @@ import { Observable } from 'rxjs';
 export class AuthInterceptor implements HttpInterceptor {
 
     public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        let configStr = localStorage.getItem('config');
-        let token: string = 'null';
-        if (configStr) {
-            let config = JSON.parse(configStr);
-            token = config.token;
-        }
+        let token: string = localStorage.getItem('access_token');
         if (token) {
             let secureHeaders: any = req.headers;
             secureHeaders = secureHeaders.append('Authorization', `bearer ${token}`);

@@ -8,9 +8,29 @@
         }
     }
 
+    div.mes {
+        display: flex;
+        height: 36px;
+        align-items: center;
+
+        input {
+            border: none;
+            outline: none;
+            width: 300px;
+        }
+
+        &>* {
+            margin-right: 20px;
+        }
+    }
+
     div.buttons {
         &>* {
             margin-right: 1em;
         }
+    }
+
+    .hidden {
+        display: none !important;
     }
 }

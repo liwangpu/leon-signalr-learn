@@ -1,27 +1,23 @@
 <form [formGroup]='form'>
     <mat-form-field appearance="fill">
-        <mat-label>Token</mat-label>
-        <input matInput formControlName='token'>
+        <mat-label>账号</mat-label>
+        <textarea matInput formControlName='username'></textarea>
     </mat-form-field>
     <mat-form-field appearance="fill">
-        <mat-label>EmployeeId</mat-label>
-        <input matInput formControlName='employeeId'>
+        <mat-label>密码</mat-label>
+        <textarea matInput formControlName='password'></textarea>
     </mat-form-field>
-    <!-- <mat-form-field appearance="fill">
-        <mat-label>用户</mat-label>
-        <input matInput formControlName='user'>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>消息</mat-label>
-        <textarea matInput formControlName='message'></textarea>
-    </mat-form-field> -->
 </form>
 
+<!-- <div class="mes" [class.hidden]='!tokenUUID'>
+    <label>UUID</label>
+    <input type="text" [ngModel]='tokenUUID' #uuidContainer>
+    <button mat-button (click)='copyUUID()'>复制</button>
+</div> -->
+
 <div class="buttons">
-    <button mat-raised-button (click)='saveConfig()'>保存配置</button>
-    <button mat-raised-button (click)='connectHub()' [disabled]='connected'>连接</button>
-    <button mat-raised-button (click)='requestAlias()'>获取别名</button>
-    <button mat-raised-button (click)='sendAuthMessage()'>发送身份认证</button>
-    <!-- <button mat-raised-button color="accent" (click)='disconnectHub()' [disabled]='!connected'>关闭</button> -->
-    <button mat-raised-button color="primary" (click)='sendMessage()' [disabled]='!connected'>发送</button>
+    <button mat-raised-button color="warn" (click)='logout()' [disabled]='!hasLogin'>注销</button>
+    <button mat-raised-button (click)='login()' [disabled]='hasLogin'>登陆</button>
+    <button mat-raised-button (click)='getProfile()' [disabled]='!hasLogin'>获取当前用户信息</button>
+    <button mat-raised-button color="primary" (click)='connectHub()' [disabled]='!canConnect'>连接</button>
 </div>

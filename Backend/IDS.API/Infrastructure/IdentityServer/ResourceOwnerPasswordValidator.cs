@@ -3,6 +3,7 @@ using IdentityServer4.Validation;
 using IDS.Domain.AggregateModels.UserAggregate;
 using IDS.Infrastructure.Specifications.IdentitySpecifications;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -41,10 +42,12 @@ namespace IDS.API.Infrastructure.IdentityServer
             //    claims.Add(new Claim("UserId", employee.Id.ToString()));
             //    claims.Add(new Claim("Username", employee.Name));
             //}
-
+            var resultDic = new Dictionary<string, object>();
+            var uuid = Guid.NewGuid().ToString("N").ToUpper();
+            resultDic["uuid"] = uuid;
             claims.Add(new Claim("IdentityId", identity.Id.ToString()));
             //claims.Add(new Claim("TenantId", tenantId.ToString()));
-            context.Result = new GrantValidationResult(context.UserName, "custom", claims);
+            context.Result = new GrantValidationResult(context.UserName, "custom", claims, "ids", resultDic);
         }
     }
 }
