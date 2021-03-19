@@ -9,12 +9,6 @@
     </mat-form-field>
 </form>
 
-<!-- <div class="mes" [class.hidden]='!tokenUUID'>
-    <label>UUID</label>
-    <input type="text" [ngModel]='tokenUUID' #uuidContainer>
-    <button mat-button (click)='copyUUID()'>复制</button>
-</div> -->
-
 <div class="buttons">
     <button mat-raised-button color="warn" (click)='logout()' [disabled]='!hasLogin'>注销</button>
     <button mat-raised-button (click)='login()' [disabled]='hasLogin'>登陆</button>

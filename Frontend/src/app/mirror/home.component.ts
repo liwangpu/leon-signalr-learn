@@ -57,7 +57,6 @@ export class HomeComponent implements OnInit {
 
         this.connection.onreconnecting(async connectionId => {
             this.snackBar.open(`连接已经断开,正在尝试重连`, null, { duration: 2000 });
-            // this.refreshToken();
         });
     }
 
@@ -113,25 +112,6 @@ export class HomeComponent implements OnInit {
         await this.connection.send('BindAlias', alias, 'mobile');
         this.snackBar.open(`连接成功`, null, { duration: 2000 });
         this.canConnect = false;
-    }
-
-    public disconnectHub(): void {
-        //
-    }
-
-    public copyUUID(): void {
-        this.uuidContainer.nativeElement.focus();
-        this.uuidContainer.nativeElement.select();
-        document.execCommand('copy');
-        this.snackBar.open(`复制成功`, null, { duration: 2000 });
-    }
-
-    public sendMessage(): void {
-        let { user, message } = this.form.value;
-        this.connection.send("newMessage", user, message)
-            .then(() => {
-                this.snackBar.open(`消息发送成功:${message}`, null, { duration: 2000 });
-            });
     }
 
 }
