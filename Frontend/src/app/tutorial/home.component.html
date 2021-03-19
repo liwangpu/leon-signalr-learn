@@ -1,0 +1,17 @@
+<form [formGroup]='form'>
+    <mat-form-field appearance="fill">
+        <mat-label>账号</mat-label>
+        <textarea matInput formControlName='username'></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>密码</mat-label>
+        <textarea matInput formControlName='password'></textarea>
+    </mat-form-field>
+</form>
+
+<div class="buttons">
+    <button mat-raised-button (click)='login()'>登陆</button>
+    <button mat-raised-button (click)='connectHub()' [disabled]='!canConnect'>连接</button>
+    <!-- <button mat-raised-button color="accent" (click)='disconnectHub()' [disabled]='!connected'>关闭</button> -->
+    <button mat-raised-button color="primary" (click)='sendMessage()' [disabled]='!connected'>发送</button>
+</div>

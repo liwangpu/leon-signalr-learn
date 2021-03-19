@@ -1,0 +1,27 @@
+<form [formGroup]='form'>
+    <mat-form-field appearance="fill">
+        <mat-label>Token</mat-label>
+        <input matInput formControlName='token'>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>EmployeeId</mat-label>
+        <input matInput formControlName='employeeId'>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>用户</mat-label>
+        <input matInput formControlName='user'>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>消息</mat-label>
+        <textarea matInput formControlName='message'></textarea>
+    </mat-form-field> -->
+</form>
+
+<div class="buttons">
+    <button mat-raised-button (click)='saveConfig()'>保存配置</button>
+    <button mat-raised-button (click)='connectHub()' [disabled]='connected'>连接</button>
+    <button mat-raised-button (click)='requestAlias()'>获取别名</button>
+    <button mat-raised-button (click)='sendAuthMessage()'>发送身份认证</button>
+    <!-- <button mat-raised-button color="accent" (click)='disconnectHub()' [disabled]='!connected'>关闭</button> -->
+    <button mat-raised-button color="primary" (click)='sendMessage()' [disabled]='!connected'>发送</button>
+</div>

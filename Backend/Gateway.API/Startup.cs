@@ -38,7 +38,7 @@ namespace Gateway.API
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins("http://localhost:9001")
+                    builder => builder.WithOrigins("http://localhost:56788")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
@@ -60,10 +60,6 @@ namespace Gateway.API
                     o.ApiSecret = IdentityServerAPISecret;
                 });
             services.AddOcelot();
-
-            //if (turnOnWebsockets)
-            //services.UseWebSockets();
-
             services.AddControllers();
         }
 
@@ -86,6 +82,7 @@ namespace Gateway.API
             app.UseAuthorization();
             app.UseWebSockets();
             app.UseOcelot().Wait();
+            //app.UseOcelot();
         }
     }
 }

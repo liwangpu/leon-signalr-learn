@@ -22,6 +22,7 @@ namespace Backend.Controllers
         {
             var aa = HttpContext.Request.Headers;
             //var timerManager = new TimerManager(() => _hub.Clients.All.SendAsync("transferchartdata", DataManager.GetData()));
+            //hub.Clients.All
             await hub.Clients.All.SendAsync("ReceiveMessage", "Hello");
             return Ok(new { Message = "Request Completed" });
         }
