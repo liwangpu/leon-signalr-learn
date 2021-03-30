@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
             .build();
 
         this.connection.on("messageReceived", (username: string, message: string) => {
-            console.log('messageReceived:', username, message);
+            console.log('messageReceived:',typeof message);
             this.snackBar.open(`收到服务消息`, null, { duration: 2000 });
         });
 
