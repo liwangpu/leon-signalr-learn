@@ -12,7 +12,7 @@ import * as signalR from "@microsoft/signalr";
 export class HomeComponent implements OnInit {
 
     public form: FormGroup;
-    public canConnect: boolean ;
+    public canConnect: boolean = true;
     // public canConnect: boolean = true;
     public connected: boolean;
     private token: string;
@@ -37,18 +37,20 @@ export class HomeComponent implements OnInit {
         }
 
         this.connection = new signalR.HubConnectionBuilder()
-            .withUrl(`${this.baseUrl}/hub/chathub`, {
-                accessTokenFactory() {
-                    return localStorage.getItem('access_token');
-                },
+            // .withUrl(`${this.baseUrl}/hub/chathub`, {
+            .withUrl(`${this.baseUrl}/chathub`, {
+                // accessTokenFactory() {
+                //     return localStorage.getItem('access_token');
+                // },
                 transport: signalR.HttpTransportType.WebSockets
             })
             .withAutomaticReconnect()
             .build();
 
-        this.connection.on("ReceiveMessage", (message) => {
-            // console.log('messageReceived',message);
-            this.snackBar.open(`接收到消息:${message}`, null, { duration: 2000 });
+        this.connection.on("ReceiveMessage", (user, message) => {
+            // console.log('messageReceived',message,aa);
+            console.log(`用户:${user} 消息${message}`);
+            // this.snackBar.open(`接收到消息:${message}`, null, { duration: 2000 });
         });
     }
 
@@ -84,7 +86,9 @@ export class HomeComponent implements OnInit {
     }
 
     public sendMessage(): void {
-
+        this.connection.invoke("SendMessage", "leon", "a message").catch(function (err) {
+            return console.error(err.toString());
+        });
     }
 
 }
