@@ -6,11 +6,7 @@ const routes: Routes = [
         path: 'tutorial',
         loadChildren: () => import('./tutorial/tutorial.module').then(m => m.TutorialModule)
     },
-    {
-        path: 'mirror',
-        loadChildren: () => import('./mirror/mirror.module').then(m => m.MirrorModule)
-    },
-    { path: '**', redirectTo: 'mirror' }
+    { path: '**', redirectTo: 'tutorial' }
 ];
 
 @NgModule({

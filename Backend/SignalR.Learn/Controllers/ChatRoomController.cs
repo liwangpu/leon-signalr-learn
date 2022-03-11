@@ -18,6 +18,7 @@ namespace Backend.Controllers
             this.hub = hub;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var aa = HttpContext.Request.Headers;
