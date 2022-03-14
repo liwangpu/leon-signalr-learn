@@ -12,13 +12,13 @@ import * as signalR from "@microsoft/signalr";
 export class HomeComponent implements OnInit {
 
     public form: FormGroup;
-    public canConnect: boolean ;
+    public canConnect: boolean;
     // public canConnect: boolean = true;
     public connected: boolean;
     private token: string;
     private connection: signalR.HubConnection;
     // private baseUrl = 'http://localhost:9882';
-    private baseUrl = 'http://localhost:9871';
+    private baseUrl = 'http://localhost:3101';
     public constructor(
         private snackBar: MatSnackBar,
         private httpClient: HttpClient,
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     ) {
         this.form = fb.group({
             username: ["admin"],
-            password: ["123456"]
+            password: ["admin"]
         });
     }
 
@@ -37,9 +37,9 @@ export class HomeComponent implements OnInit {
         }
 
         this.connection = new signalR.HubConnectionBuilder()
-            .withUrl(`${this.baseUrl}/hub/chathub`, {
+            .withUrl(`${this.baseUrl}/chathub`, {
                 accessTokenFactory() {
-                    return localStorage.getItem('access_token');
+                    return localStorage.getItem('token');
                 },
                 transport: signalR.HttpTransportType.WebSockets
             })
@@ -53,18 +53,12 @@ export class HomeComponent implements OnInit {
     }
 
     public async login(): Promise<void> {
-        let account = this.form.value;
-        let url: string = `${this.baseUrl}/ids/connect/token`;
-        const body: FormData = new FormData();
-        body.set('grant_type', 'password');
-        body.set('client_id', 'server');
-        body.set('username', account.username);
-        body.set('password', account.password);
-        this.httpClient.post<any>(url, body).subscribe(res => {
+        // let account = this.form.value;
+        let url: string = `${this.baseUrl}/api/Token/Request`;
+        this.httpClient.post<any>(url, { username: "admin", "password": "admin" }).subscribe(res => {
             this.token = res.access_token;
             this.canConnect = true;
-            localStorage.setItem('access_token', res.access_token);
-            localStorage.setItem('latest_login', JSON.stringify(account));
+            localStorage.setItem('token', res.token);
             this.snackBar.open(`登陆成功`, null, { duration: 2000 });
         });
     }
