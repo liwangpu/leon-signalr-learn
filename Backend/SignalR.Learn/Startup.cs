@@ -32,7 +32,7 @@ namespace Backend
             services.AddPrifileContext();
             services.AddControllers();
             services.AddSignalR();
-            services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
+            //services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
             //services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
         }
 
