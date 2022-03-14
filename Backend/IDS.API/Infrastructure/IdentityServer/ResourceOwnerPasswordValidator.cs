@@ -46,6 +46,7 @@ namespace IDS.API.Infrastructure.IdentityServer
             var uuid = Guid.NewGuid().ToString("N").ToUpper();
             resultDic["uuid"] = uuid;
             claims.Add(new Claim("IdentityId", identity.Id.ToString()));
+            claims.Add(new Claim("Username", identity.Username));
             //claims.Add(new Claim("TenantId", tenantId.ToString()));
             context.Result = new GrantValidationResult(context.UserName, "custom", claims, "ids", resultDic);
         }

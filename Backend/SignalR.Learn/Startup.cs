@@ -1,3 +1,4 @@
+using Base.API;
 using IDS.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,12 +24,12 @@ namespace Backend
         {
             services.Configure<AppConfig>(Configuration);
 
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-            builder => builder.AllowAnyHeader()
-            .AllowAnyMethod()
-            .SetIsOriginAllowed((host) => true)
-            .AllowCredentials()));
-
+            //services.AddCors(options => options.AddPolicy("CorsPolicy",
+            //builder => builder.AllowAnyHeader()
+            //.AllowAnyMethod()
+            //.SetIsOriginAllowed((host) => true)
+            //.AllowCredentials()));
+            services.AddPrifileContext();
             services.AddControllers();
             services.AddSignalR();
             services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
@@ -38,7 +39,7 @@ namespace Backend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors("CorsPolicy");
+            //app.UseCors("CorsPolicy");
 
             app.UseRouting();
 

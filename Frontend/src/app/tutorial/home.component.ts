@@ -25,8 +25,8 @@ export class HomeComponent implements OnInit {
         fb: FormBuilder
     ) {
         this.form = fb.group({
-            username: [],
-            password: []
+            username: ["admin"],
+            password: ["123456"]
         });
     }
 

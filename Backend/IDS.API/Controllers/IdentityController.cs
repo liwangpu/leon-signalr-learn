@@ -20,7 +20,7 @@ namespace IDS.API.Controllers
         public IdentityController(IMediator mediator)
         {
             this.mediator = mediator;
-        } 
+        }
         #endregion
 
         #region Get 根据分页查询用户信息
@@ -50,7 +50,7 @@ namespace IDS.API.Controllers
         {
             var dto = await mediator.Send(new IdentityQuery(id));
             return Ok(dto);
-        } 
+        }
         #endregion
 
         #region GetProfile 获取用户个人信息
@@ -61,6 +61,7 @@ namespace IDS.API.Controllers
         [HttpGet("Profile")]
         public async Task<IActionResult> GetProfile()
         {
+            var u = HttpContext.User;
             var dto = await mediator.Send(new UserProfileQuery());
             return Ok(dto);
         }
@@ -74,7 +75,7 @@ namespace IDS.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(IdentityQueryDTO), 200)]
-        public async Task<IActionResult> Post([FromBody]IdentityCreateCommand command)
+        public async Task<IActionResult> Post([FromBody] IdentityCreateCommand command)
         {
             var id = await mediator.Send(command);
             return await Get(id);
@@ -93,7 +94,7 @@ namespace IDS.API.Controllers
         {
             await mediator.Send(new IdentityDeleteCommand(id));
             return NoContent();
-        } 
+        }
         #endregion
     }
 }
